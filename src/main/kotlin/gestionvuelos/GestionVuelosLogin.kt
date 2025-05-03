@@ -66,7 +66,6 @@ class GestionVuelosLogin : JFrame() {
         btnLogin.addActionListener(object : ActionListener {
             override fun actionPerformed(e: ActionEvent?) {
                 checkFields()
-                // Verificar si los campos están llenos y hacer algo (por ejemplo, imprimir en consola)
                 if (textID.text.isNotEmpty() && passwordField.password.isNotEmpty()) {
                     validateLogin(textID.text, String(passwordField.password))  // Validar el login
                 }
@@ -151,7 +150,7 @@ class GestionVuelosLogin : JFrame() {
                 val storedPassword = resultSet.getString("contrasena")
                 if (storedPassword == password) {
                     println("Login successful!")
-                    // Aquí puedes redirigir a la siguiente ventana o realizar cualquier otra acción
+                    dispose()
                 } else {
                     println("Incorrect password.")
                 }
