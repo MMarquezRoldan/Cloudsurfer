@@ -28,6 +28,7 @@ class GestionVuelosRegister : JFrame() {
      */
     init {
         setDefaultCloseOperation(EXIT_ON_CLOSE)
+        setLocationRelativeTo(null)
         setBounds(100, 100, 600, 500)
         contentPane = JPanel()
         contentPane.setBorder(EmptyBorder(5, 5, 5, 5))

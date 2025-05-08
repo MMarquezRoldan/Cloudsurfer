@@ -25,6 +25,7 @@ class GestionVuelosLogin : JFrame() {
     init {
         setDefaultCloseOperation(EXIT_ON_CLOSE)
         setBounds(100, 100, 600, 400)
+        setLocationRelativeTo(null)
         contentPane = JPanel()
         contentPane.setBorder(EmptyBorder(5, 5, 5, 5))
         setTitle("Client login")
