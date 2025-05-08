@@ -135,19 +135,17 @@ class GestionVuelosLogin : JFrame() {
         val dbPassword = ""
 
         try {
-            // Registrar el controlador JDBC de MySQL
             Class.forName("com.mysql.cj.jdbc.Driver")
 
             val connection: Connection = DriverManager.getConnection(url, user, dbPassword)
 
-            // Prepara la consulta SQL para verificar el ID y la contraseña
             val sql = "SELECT * FROM pasajeros WHERE id_pasajero = ?"
             val preparedStatement: PreparedStatement = connection.prepareStatement(sql)
             preparedStatement.setString(1, userID)
             val resultSet: ResultSet = preparedStatement.executeQuery()
 
             if (resultSet.next()) {
-                // Verificar si la contraseña es correcta
+
                 val storedPassword = resultSet.getString("contrasena")
                 if (storedPassword == password) {
                     println("Login successful!")
