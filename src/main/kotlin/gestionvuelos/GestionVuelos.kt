@@ -2,6 +2,8 @@ package gestionvuelos
 
 import java.awt.EventQueue
 import java.awt.Font
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
 import javax.swing.*
 import javax.swing.border.EmptyBorder
 
@@ -33,6 +35,7 @@ class GestionVuelos(username: String?) : JFrame() {
         mnNewMenu_2.add(separator)
 
         val mntmNewMenuItem_6 = JMenuItem("Salir")
+        mntmNewMenuItem_6.addActionListener { e -> dispose() }
         mnNewMenu_2.add(mntmNewMenuItem_6)
 
         val mnNewMenu_1 = JMenu("Gestión")
