@@ -106,7 +106,7 @@ class GestionVuelos(username: String?) : JFrame() {
             EventQueue.invokeLater(object : Runnable {
                 override fun run() {
                     try {
-                        val frame = GestionVuelos("test")
+                        val frame = GestionVuelos("??????")
                         frame.setVisible(true)
                     } catch (e: Exception) {
                         e.printStackTrace()
