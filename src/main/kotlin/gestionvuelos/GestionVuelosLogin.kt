@@ -148,7 +148,8 @@ class GestionVuelosLogin : JFrame() {
 
                 val storedPassword = resultSet.getString("contrasena")
                 if (storedPassword == password) {
-                    println("Login successful!")
+                    val gestionVuelos = GestionVuelos(resultSet.getString("NOMBRE"))
+                    gestionVuelos.isVisible = true
                     dispose()
                 } else {
                     println("Incorrect password.")
