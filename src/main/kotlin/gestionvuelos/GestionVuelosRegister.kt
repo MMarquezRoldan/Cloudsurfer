@@ -35,6 +35,7 @@ class GestionVuelosRegister : JFrame() {
         setContentPane(contentPane)
         contentPane.setLayout(null)
         setTitle("Register")
+        isResizable = false
 
         val lblRegister = JLabel("Register")
         lblRegister.setFont(Font("Tahoma", Font.BOLD, 30))

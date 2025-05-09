@@ -29,6 +29,7 @@ class GestionVuelosLogin : JFrame() {
         contentPane = JPanel()
         contentPane.setBorder(EmptyBorder(5, 5, 5, 5))
         setTitle("Client login")
+        isResizable = false
 
         val hand = Cursor(Cursor.HAND_CURSOR)
         val reg = GestionVuelosRegister()

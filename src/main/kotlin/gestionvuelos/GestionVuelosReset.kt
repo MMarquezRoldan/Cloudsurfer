@@ -21,6 +21,7 @@ class GestionVuelosReset : JFrame() {
         contentPane = JPanel()
         contentPane.setBorder(EmptyBorder(5, 5, 5, 5))
         setTitle("Reset password")
+        isResizable = false
 
         setContentPane(contentPane)
         contentPane.setLayout(null)

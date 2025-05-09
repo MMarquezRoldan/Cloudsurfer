@@ -15,6 +15,7 @@ class GestionVuelos(username: String?) : JFrame() {
         setTitle("Gestión de vuelos")
         setDefaultCloseOperation(EXIT_ON_CLOSE)
         setBounds(100, 100, 585, 498)
+        isResizable = false
 
         val menuBar = JMenuBar()
         setJMenuBar(menuBar)
