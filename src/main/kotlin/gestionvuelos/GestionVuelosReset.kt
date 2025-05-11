@@ -2,6 +2,10 @@ package gestionvuelos
 
 import java.awt.EventQueue
 import java.awt.Font
+import java.awt.event.ActionEvent
+import java.awt.event.ActionListener
+import java.sql.DriverManager
+import java.sql.PreparedStatement
 import javax.swing.*
 import javax.swing.border.EmptyBorder
 
@@ -11,13 +15,10 @@ class GestionVuelosReset : JFrame() {
     private val passwordField: JPasswordField?
     private val passwordField_1: JPasswordField?
 
-    /**
-     * Create the frame.
-     */
     init {
         setDefaultCloseOperation(EXIT_ON_CLOSE)
-        setLocationRelativeTo(null)
         setBounds(100, 100, 500, 350)
+        setLocationRelativeTo(null)
         contentPane = JPanel()
         contentPane.setBorder(EmptyBorder(5, 5, 5, 5))
         setTitle("Reset password")
@@ -54,9 +55,49 @@ class GestionVuelosReset : JFrame() {
         passwordField_1.setBounds(226, 180, 120, 19)
         contentPane.add(passwordField_1)
 
-        val btnNewButton = JButton("Reset")
-        btnNewButton.setBounds(226, 221, 120, 21)
-        contentPane.add(btnNewButton)
+        val btnReset = JButton("Reset")
+        btnReset.setBounds(226, 221, 120, 21)
+        btnReset.addActionListener {
+            val url = "jdbc:mysql://localhost:3306/gestion_vuelos"
+            val user = "admin"
+            val dbPassword = ""
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver")
+                val connection: java.sql.Connection = DriverManager.getConnection(url, user, dbPassword)
+                val statement: PreparedStatement = connection.prepareStatement(
+                    "UPDATE PASAJEROS SET CONTRASENA = ? WHERE ID_PASAJERO = ?"
+                )
+                statement.setString(1, String(passwordField.password))
+                statement.setString(2, textField.getText())
+                val rowsAffected = statement.executeUpdate()
+
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Password has been updated successfully",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE
+                    )
+                } else {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "No passenger found with that ID",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                    )
+                }
+
+                val gestionVuelosLogin = GestionVuelosLogin()
+                gestionVuelosLogin.isVisible = true
+
+                dispose()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        contentPane.add(btnReset)
 
         val lblResetYourPassword = JLabel("Reset your password")
         lblResetYourPassword.setFont(Font("Tahoma", Font.BOLD, 30))
@@ -67,9 +108,6 @@ class GestionVuelosReset : JFrame() {
     companion object {
         private const val serialVersionUID = 1L
 
-        /**
-         * Launch the application.
-         */
         @JvmStatic
         fun main(args: Array<String>) {
             EventQueue.invokeLater(object : Runnable {
