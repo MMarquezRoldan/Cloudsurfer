@@ -1,5 +1,6 @@
 package gestionvuelos
 
+import com.sun.jdi.connect.spi.Connection
 import java.awt.Color
 import java.awt.Cursor
 import java.awt.EventQueue
@@ -8,6 +9,9 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import java.awt.event.ItemEvent
 import java.awt.event.ItemListener
+import java.sql.DriverManager
+import java.sql.PreparedStatement
+import java.sql.ResultSet
 import javax.swing.*
 import javax.swing.border.EmptyBorder
 import javax.swing.event.DocumentEvent
@@ -28,8 +32,8 @@ class GestionVuelosRegister : JFrame() {
      */
     init {
         setDefaultCloseOperation(EXIT_ON_CLOSE)
-        setLocationRelativeTo(null)
         setBounds(100, 100, 600, 500)
+        setLocationRelativeTo(null)
         contentPane = JPanel()
         contentPane.setBorder(EmptyBorder(5, 5, 5, 5))
         setContentPane(contentPane)
@@ -118,13 +122,36 @@ class GestionVuelosRegister : JFrame() {
         btnRegisterButton.setCursor(Cursor(Cursor.HAND_CURSOR))
         btnRegisterButton.addActionListener(object : ActionListener {
             override fun actionPerformed(e: ActionEvent?) {
-                JOptionPane.showMessageDialog(
-                    null,
-                    "Registration has been completed",
-                    "Success",
-                    JOptionPane.INFORMATION_MESSAGE
-                )
-                dispose()
+
+                val url = "jdbc:mysql://localhost:3306/gestion_vuelos"
+                val user = "admin"
+                val dbPassword = ""
+
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver")
+                    val connection: java.sql.Connection = DriverManager.getConnection(url, user, dbPassword)
+                    val statement: PreparedStatement = connection.prepareStatement("INSERT INTO PASAJEROS VALUES (?,?,?,?)")
+                    statement.setString(1, txtID.getText())
+                    statement.setString(2, txtName.getText())
+                    statement.setString(3, txtSurname.getText())
+                    statement.setString(4, String(passwordField.password))
+                    statement.executeUpdate()
+
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Registration has been completed",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE
+                    )
+
+                    val gestionVuelosLogin = GestionVuelosLogin()
+                    gestionVuelosLogin.isVisible = true
+
+                    dispose()
+
+                } catch (e:  Exception) {
+                    e.printStackTrace()
+                }
             }
         })
         contentPane.add(btnRegisterButton)
